@@ -4,8 +4,11 @@ random_string=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
 outfile="/tmp/plog.$random_string.log"
 
-logfile="/var/log/nginx/error.log"
-
+if [ $# -eq 0 ]; then
+  logfile="/var/log/nginx/error.log"
+else
+  logfile=$1
+fi
 
 mkfifo $outfile
 
